@@ -592,20 +592,18 @@ class Client
      */
     private function buildAuthenticationQuery()
     {
-        $options = [
-            'query' => [
-                'client_id' => $this->clientId,
-                'client_secret' => $this->clientSecret,
-                'grant_type' => $this->grantType,
-            ]
+        $query = [
+            'client_id' => $this->clientId,
+            'client_secret' => $this->clientSecret,
+            'grant_type' => $this->grantType,
         ];
 
         if (self::GRANT_TYPE_RESOURCE_OWNER_CREDENTIALS === $this->grantType) {
-            $options['username'] = $this->username;
-            $options['password'] = $this->password;
+            $query['username'] = $this->username;
+            $query['password'] = $this->password;
         }
 
-        return $options;
+        return $query;
     }
 
     /**
