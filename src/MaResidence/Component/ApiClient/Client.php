@@ -347,6 +347,50 @@ class Client
     }
 
     /**
+     * @param array $eventData
+     * @param       $version
+     *
+     * @return mixed
+     */
+    public function postEvent(array $eventData, $version)
+    {
+        $data['event'] = $eventData;
+        $response = $this->post('/api/events', $version, $data);
+
+        $body = $response->json();
+
+        if (! is_array($body)) {
+            throw new \LogicException(
+                'The Event was successfully created but an unexpected response was return from the MR API'
+            );
+        }
+
+        return $body;
+    }
+
+    /**
+     * @param array $newsData
+     * @param       $version
+     *
+     * @return mixed
+     */
+    public function postNews(array $newsData, $version)
+    {
+        $data['news'] = $newsData;
+        $response = $this->post('/api/news', $version, $data);
+
+        $body = $response->json();
+
+        if (! is_array($body)) {
+            throw new \LogicException(
+                'The News was successfully created but an unexpected response was return from the MR API'
+            );
+        }
+
+        return $body;
+    }
+
+    /**
      * @param array $recommendationData
      * @param       $version
      *
@@ -592,20 +636,18 @@ class Client
      */
     private function buildAuthenticationQuery()
     {
-        $options = [
-            'query' => [
-                'client_id' => $this->clientId,
-                'client_secret' => $this->clientSecret,
-                'grant_type' => $this->grantType,
-            ]
+        $query = [
+            'client_id' => $this->clientId,
+            'client_secret' => $this->clientSecret,
+            'grant_type' => $this->grantType,
         ];
 
         if (self::GRANT_TYPE_RESOURCE_OWNER_CREDENTIALS === $this->grantType) {
-            $options['username'] = $this->username;
-            $options['password'] = $this->password;
+            $query['username'] = $this->username;
+            $query['password'] = $this->password;
         }
 
-        return $options;
+        return $query;
     }
 
     /**
