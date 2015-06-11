@@ -17,6 +17,9 @@ use MaResidence\Component\ApiClient\Storage\InMemoryStorage;
 
 class Client
 {
+    const GRANT_TYPE_CLIENT_CREDENTIALS = 'client_credentials';
+    const GRANT_TYPE_RESOURCE_OWNER_CREDENTIALS = 'password';
+
     /**
      * @var TokenStorageInterface
      */
@@ -40,6 +43,11 @@ class Client
      * @var string Your ClientSecret provided by ma-residence.fr
      */
     private $clientSecret;
+
+    /**
+     * @var string The OAuth grant type
+     */
+    private $grantType;
 
     /**
      * @var string Your username provided by ma-residence.fr
@@ -75,6 +83,7 @@ class Client
 
         $this->clientId = $options['client_id'];
         $this->clientSecret = $options['client_secret'];
+        $this->grantType = array_key_exists('grant_type', $options) ? $options['grant_type'] : self::GRANT_TYPE_CLIENT_CREDENTIALS;
         $this->username = $options['username'];
         $this->password = $options['password'];
         $this->endpoint = $options['endpoint'];
@@ -572,6 +581,42 @@ class Client
                 throw new \InvalidArgumentException(sprintf('Missing mandatory "%s" option', $optionName));
             }
         }
+
+        if (array_key_exists('grant_type', $options) && !in_array($options['grant_type'], $this->getAllowedGrantTypes())) {
+            throw new \InvalidArgumentException(sprintf('Grant type "%s" is not managed by the Client', $options['grant_type']));
+        }
+    }
+
+    /**
+     * @return array
+     */
+    private function buildAuthenticationQuery()
+    {
+        $options = [
+            'query' => [
+                'client_id' => $this->clientId,
+                'client_secret' => $this->clientSecret,
+                'grant_type' => $this->grantType,
+            ]
+        ];
+
+        if (self::GRANT_TYPE_RESOURCE_OWNER_CREDENTIALS === $this->grantType) {
+            $options['username'] = $this->username;
+            $options['password'] = $this->password;
+        }
+
+        return $options;
+    }
+
+    /**
+     * @return array
+     */
+    private function getAllowedGrantTypes()
+    {
+        return array(
+            self::GRANT_TYPE_CLIENT_CREDENTIALS,
+            self::GRANT_TYPE_RESOURCE_OWNER_CREDENTIALS,
+        );
     }
 
     /**
@@ -583,13 +628,7 @@ class Client
     private function doAuthenticate()
     {
         $options = [
-            'query' => [
-                'client_id' => $this->clientId,
-                'client_secret' => $this->clientSecret,
-                'grant_type' => 'client_credentials',
-//                'username' => $this->username,
-//                'password' => $this->password,
-            ]
+            'query' => $this->buildAuthenticationQuery(),
         ];
 
         try {
