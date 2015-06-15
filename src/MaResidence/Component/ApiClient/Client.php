@@ -146,6 +146,17 @@ class Client
 
     /**
      * @param array $options
+     * @param bool  $forceReValidation
+     *
+     * @return mixed
+     */
+    public function getTimelineNeighborhood(array $options = [], $forceReValidation = false)
+    {
+        return $this->get('/api/timeline/dans-mon-quartier', $options, $forceReValidation);
+    }
+
+    /**
+     * @param array $options
      * @param bool $forceReValidation
      *
      * @return mixed
