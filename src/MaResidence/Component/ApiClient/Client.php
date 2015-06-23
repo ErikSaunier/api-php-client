@@ -522,6 +522,35 @@ class Client
         return $this->getResourceById('shops', $id, $options, $forceReValidation);
     }
 
+
+    /**
+     * @param int    $userId
+     * @param array  $options
+     * @param bool   $forceReValidation
+     * @return array
+     */
+    public function getMessages($userId,  array $options = [], $forceReValidation = false)
+    {
+        $url = sprintf('/api/users/%s/messages', $userId);
+
+        return $this->get($url, $options, $forceReValidation);
+    }
+
+    /**
+     * @param int   $userId
+     * @param int   $messageId
+     * @param array $options
+     * @param bool  $forceReValidation
+     * @return array
+     */
+    public function getMessageId($userId, $messageId, array $options = [], $forceReValidation = false)
+    {
+        $url = sprintf('/api/users/%s/messages/%s', $userId, $messageId);
+
+        return $this->get($url, $options, $forceReValidation);
+    }
+
+
     /**
      * @param $resource
      * @param array $options
