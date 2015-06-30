@@ -584,7 +584,7 @@ class Client
      *
      * @return mixed
      */
-    public function patchMessageRead($messageId, $read, $version)
+    public function putMessageRead($messageId, $read, $version)
     {
         $data = array(
             'message' => array(
@@ -592,7 +592,7 @@ class Client
             ),
         );
         $url = sprintf('/api/messages/%s', $messageId);
-        $response = $this->patch($url, $version, $data);
+        $response = $this->put($url, $version, $data);
 
         $body = $response->json();
 
@@ -709,6 +709,27 @@ class Client
         $requestOptions = $this->getPostRequestOptions($version, $data, $bodyEncoding);
 
         $response = $this->client->patch($url, $requestOptions);
+
+        if (200 !== $response->getStatusCode()) {
+            throw new \LogicException('An error occurred when trying to POST data to MR API');
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param $url
+     * @param $version
+     * @param array  $data
+     * @param string $bodyEncoding
+     *
+     * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface|null
+     */
+    private function put($url, $version, array $data = [], $bodyEncoding = 'json')
+    {
+        $requestOptions = $this->getPostRequestOptions($version, $data, $bodyEncoding);
+
+        $response = $this->client->put($url, $requestOptions);
 
         if (200 !== $response->getStatusCode()) {
             throw new \LogicException('An error occurred when trying to POST data to MR API');
