@@ -550,6 +550,31 @@ class Client
         return $this->get($url, $options, $forceReValidation);
     }
 
+    /**
+     * @param array $messageData
+     * @param       $userId
+     * @param       $version
+     *
+     * @return array
+     */
+    public function postMessage(array $messageData, $userId, $version)
+    {
+        $data = array(
+            'message' => $messageData,
+        );
+        $url = sprintf('/api/users/%s/messages', $userId);
+        $response = $this->post($url, $version, $data);
+
+        $body = $response->json();
+
+        if (!is_array($body)) {
+            throw new \LogicException(
+                'The News was successfully created but an unexpected response was return from the MR API'
+            );
+        }
+
+        return $body;
+    }
 
     /**
      * @param $resource
