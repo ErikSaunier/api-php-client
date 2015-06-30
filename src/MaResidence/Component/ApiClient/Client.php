@@ -59,7 +59,6 @@ class Client
      */
     private $password;
 
-
     /**
      * @var string
      */
@@ -70,9 +69,8 @@ class Client
      */
     private $tokenUrl;
 
-
     /**
-     * @param array            $options
+     * @param array                 $options
      * @param ClientInterface       $httpClient
      * @param TokenStorageInterface $tokenStorage
      * @param CacheStorageInterface $cacheStorage
@@ -101,14 +99,14 @@ class Client
 
         // enable cache proxy
         CacheSubscriber::attach($this->client, [
-            'storage' => $this->cacheStorage ,
-            'validate' => false
+            'storage' => $this->cacheStorage,
+            'validate' => false,
         ]);
 
         $this->tokenStorage = $tokenStorage ?: new InMemoryStorage();
     }
     /**
-     * Authenticate user through the API
+     * Authenticate user through the API.
      */
     public function authenticate()
     {
@@ -157,7 +155,7 @@ class Client
 
     /**
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -169,7 +167,7 @@ class Client
     /**
      * @param $id
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -180,7 +178,7 @@ class Client
 
     /**
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -192,7 +190,7 @@ class Client
     /**
      * @param $id
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -203,7 +201,7 @@ class Client
 
     /**
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -215,7 +213,7 @@ class Client
     /**
      * @param $id
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -226,7 +224,7 @@ class Client
 
     /**
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -238,7 +236,7 @@ class Client
     /**
      * @param $id
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -250,7 +248,7 @@ class Client
     /**
      * @param $id
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -262,7 +260,7 @@ class Client
     /**
      * @param $id
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -274,7 +272,7 @@ class Client
     /**
      * @param $id
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -310,7 +308,7 @@ class Client
             }
         }
 
-        if (! is_array($body) || ! array_key_exists('user', $body)) {
+        if (!is_array($body) || !array_key_exists('user', $body)) {
             throw new \LogicException(
                 'The User was successfully created but an unexpected response was return from the MR API'
             );
@@ -318,7 +316,7 @@ class Client
 
         $user = $body['user'];
 
-        if (! is_array($user) || ! array_key_exists('id', $user) || ! array_key_exists('self', $user)) {
+        if (!is_array($user) || !array_key_exists('id', $user) || !array_key_exists('self', $user)) {
             throw new \LogicException(
                 'The User was successfully created but an unexpected response was return from the MR API. Expected key id and self.'
             );
@@ -340,7 +338,7 @@ class Client
 
         $body = $response->json();
 
-        if (! is_array($body) || ! array_key_exists('advert', $body)) {
+        if (!is_array($body) || !array_key_exists('advert', $body)) {
             throw new \LogicException(
                 'The Advert was successfully created but an unexpected response was return from the MR API'
             );
@@ -348,7 +346,7 @@ class Client
 
         $advert = $body['advert'];
 
-        if (! is_array($advert) || ! array_key_exists('id', $advert) || ! array_key_exists('self', $advert)) {
+        if (!is_array($advert) || !array_key_exists('id', $advert) || !array_key_exists('self', $advert)) {
             throw new \LogicException(
                 'The Advert was successfully created but an unexpected response was return from the MR API. Expected key id and self.'
             );
@@ -370,7 +368,7 @@ class Client
 
         $body = $response->json();
 
-        if (! is_array($body)) {
+        if (!is_array($body)) {
             throw new \LogicException(
                 'The Event was successfully created but an unexpected response was return from the MR API'
             );
@@ -392,7 +390,7 @@ class Client
 
         $body = $response->json();
 
-        if (! is_array($body)) {
+        if (!is_array($body)) {
             throw new \LogicException(
                 'The News was successfully created but an unexpected response was return from the MR API'
             );
@@ -414,7 +412,7 @@ class Client
 
         $body = $response->json();
 
-        if (! is_array($body) || ! array_key_exists('recommendation', $body)) {
+        if (!is_array($body) || !array_key_exists('recommendation', $body)) {
             throw new \LogicException(
                 'The Recommendation was successfully created but an unexpected response was return from the MR API'
             );
@@ -422,7 +420,7 @@ class Client
 
         $recommendation = $body['recommendation'];
 
-        if (! is_array($recommendation) || ! array_key_exists('id', $recommendation) || ! array_key_exists('self', $recommendation)) {
+        if (!is_array($recommendation) || !array_key_exists('id', $recommendation) || !array_key_exists('self', $recommendation)) {
             throw new \LogicException(
                 'The Recommendation was successfully created but an unexpected response was return from the MR API. Expected key id and self.'
             );
@@ -432,9 +430,9 @@ class Client
     }
 
     /**
-     * @param string $id ID of the advert to share
-     * @param array $shareData
-     * @param       $version
+     * @param string $id        ID of the advert to share
+     * @param array  $shareData
+     * @param        $version
      *
      * @return mixed
      */
@@ -447,7 +445,7 @@ class Client
 
         $body = $response->json();
 
-        if (! is_array($body) || ! array_key_exists('share', $body)) {
+        if (!is_array($body) || !array_key_exists('share', $body)) {
             throw new \LogicException(
                 'The Share was successfully created but an unexpected response was return from the MR API'
             );
@@ -455,7 +453,7 @@ class Client
 
         $share = $body['share'];
 
-        if (! is_array($share) || ! array_key_exists('email', $share)) {
+        if (!is_array($share) || !array_key_exists('email', $share)) {
             throw new \LogicException(
                 'The Share was successfully created but an unexpected response was return from the MR API. Expected key email.'
             );
@@ -467,7 +465,7 @@ class Client
     /**
      * @param $id
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -478,7 +476,7 @@ class Client
 
     /**
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -490,7 +488,7 @@ class Client
     /**
      * @param $id
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -501,7 +499,7 @@ class Client
 
     /**
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -513,7 +511,7 @@ class Client
     /**
      * @param $id
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -522,11 +520,11 @@ class Client
         return $this->getResourceById('shops', $id, $options, $forceReValidation);
     }
 
-
     /**
-     * @param int    $userId
-     * @param array  $options
-     * @param bool   $forceReValidation
+     * @param int   $userId
+     * @param array $options
+     * @param bool  $forceReValidation
+     *
      * @return array
      */
     public function getMessages($userId,  array $options = [], $forceReValidation = false)
@@ -541,11 +539,12 @@ class Client
      * @param int   $messageId
      * @param array $options
      * @param bool  $forceReValidation
+     *
      * @return array
      */
-    public function getMessageId($userId, $messageId, array $options = [], $forceReValidation = false)
+    public function getMessageId($messageId, array $options = [], $forceReValidation = false)
     {
-        $url = sprintf('/api/users/%s/messages/%s', $userId, $messageId);
+        $url = sprintf('/api/messages/%s', $messageId);
 
         return $this->get($url, $options, $forceReValidation);
     }
@@ -577,9 +576,39 @@ class Client
     }
 
     /**
+     * Set Message as read.
+     *
+     * @param $messageId
+     * @param $read
+     * @param $version
+     *
+     * @return mixed
+     */
+    public function patchMessageRead($messageId, $read, $version)
+    {
+        $data = array(
+            'message' => array(
+                'read' => $read,
+            ),
+        );
+        $url = sprintf('/api/messages/%s', $messageId);
+        $response = $this->patch($url, $version, $data);
+
+        $body = $response->json();
+
+        if (!is_array($body)) {
+            throw new \LogicException(
+                'The News was successfully created but an unexpected response was return from the MR API'
+            );
+        }
+
+        return $body;
+    }
+
+    /**
      * @param $resource
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -594,7 +623,7 @@ class Client
      * @param $resource
      * @param $id
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -608,7 +637,7 @@ class Client
     /**
      * @param $url
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return array
      */
@@ -649,12 +678,53 @@ class Client
     /**
      * @param $url
      * @param $version
-     * @param array $data
+     * @param array  $data
      * @param string $bodyEncoding
      *
      * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface|null
      */
     private function post($url, $version, array $data = [], $bodyEncoding = 'json')
+    {
+        $requestOptions = $this->getPostRequestOptions($version, $data, $bodyEncoding);
+
+        $response = $this->client->post($url, $requestOptions);
+
+        if (201 !== $response->getStatusCode()) {
+            throw new \LogicException('An error occurred when trying to POST data to MR API');
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param $url
+     * @param $version
+     * @param array  $data
+     * @param string $bodyEncoding
+     *
+     * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface|null
+     */
+    private function patch($url, $version, array $data = [], $bodyEncoding = 'json')
+    {
+        $requestOptions = $this->getPostRequestOptions($version, $data, $bodyEncoding);
+
+        $response = $this->client->patch($url, $requestOptions);
+
+        if (200 !== $response->getStatusCode()) {
+            throw new \LogicException('An error occurred when trying to POST data to MR API');
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param $version
+     * @param array  $data
+     * @param string $bodyEncoding
+     *
+     * @return array
+     */
+    private function getPostRequestOptions($version, array $data = [], $bodyEncoding = 'json')
     {
         $token = $this->tokenStorage->getAccessToken();
 
@@ -674,13 +744,7 @@ class Client
 
         $requestOptions['query']['access_token'] = $token['access_token'];
 
-        $response = $this->client->post($url, $requestOptions);
-
-        if (201 !== $response->getStatusCode()) {
-            throw new \LogicException('An error occurred when trying to POST data to MR API');
-        }
-
-        return $response;
+        return $requestOptions;
     }
 
     private function validateOptions(array $options)
@@ -728,6 +792,7 @@ class Client
 
     /**
      * @return mixed
+     *
      * @throws BadRequestException
      * @throws InvalidClientException
      * @throws UnauthorizedClientException
