@@ -606,6 +606,18 @@ class Client
     }
 
     /**
+     * Delete a Message.
+     *
+     * @param $messageId
+     * @param $version
+     */
+    public function deleteMessage($messageId, $version)
+    {
+        $url = sprintf('/api/messages/%s', $messageId);
+        $this->delete($url, $version);
+    }
+
+    /**
      * @param $resource
      * @param array $options
      * @param bool  $forceReValidation
@@ -739,6 +751,27 @@ class Client
     }
 
     /**
+     * @param $url
+     * @param $version
+     * @param array  $data
+     * @param string $bodyEncoding
+     *
+     * @return \GuzzleHttp\Message\FutureResponse|\GuzzleHttp\Message\ResponseInterface|\GuzzleHttp\Ring\Future\FutureInterface|null
+     */
+    private function delete($url, $version, array $data = [], $bodyEncoding = 'json')
+    {
+        $requestOptions = $this->getPostRequestOptions($version, $data, $bodyEncoding);
+
+        $response = $this->client->delete($url, $requestOptions);
+
+        if (204 !== $response->getStatusCode()) {
+            throw new \LogicException('An error occurred when trying to POST data to MR API');
+        }
+
+        return $response;
+    }
+
+    /**
      * @param $version
      * @param array  $data
      * @param string $bodyEncoding
@@ -756,7 +789,7 @@ class Client
         }
 
         // Encode the body to be fully compatible with REST
-        if ('json' == $bodyEncoding) {
+        if ('json' == $bodyEncoding && array_key_exists('body', $requestOptions)) {
             $requestOptions['headers']['Content-type'] = 'application/json';
             $requestOptions['body'] = json_encode($requestOptions['body']);
         }
