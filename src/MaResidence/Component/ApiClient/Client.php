@@ -627,7 +627,7 @@ class Client
      */
     public function getAutocompleteTown($query, $limit = 10)
     {
-        $url = '/api/addresses/town/autocomplete';
+        $url = '/api/towns/autocomplete';
 
         return $this->get($url, array(
             'q' => $query,
