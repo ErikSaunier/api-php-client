@@ -636,6 +636,25 @@ class Client
     }
 
     /**
+     * Autocomplete street name.
+     *
+     * @param string $postalCode
+     * @param string $query
+     * @param int    $limit
+     *
+     * @return array
+     */
+    public function getAutocompleteStreet($postalCode, $query, $limit = 10)
+    {
+        $url = sprintf('/api/towns/%s/street/autocomplete', $postalCode);
+
+        return $this->get($url, array(
+            'q' => $query,
+            'limit' => $limit,
+        ));
+    }
+
+    /**
      * @param $resource
      * @param array $options
      * @param bool  $forceReValidation
