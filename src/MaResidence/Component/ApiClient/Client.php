@@ -618,6 +618,24 @@ class Client
     }
 
     /**
+     * Autocomplete postal code and city name.
+     *
+     * @param string $query
+     * @param int    $limit
+     *
+     * @return array
+     */
+    public function getAutocompleteTown($query, $limit = 10)
+    {
+        $url = '/api/addresses/town/autocomplete';
+
+        return $this->get($url, array(
+            'q' => $query,
+            'limit' => $limit,
+        ));
+    }
+
+    /**
      * @param $resource
      * @param array $options
      * @param bool  $forceReValidation
@@ -676,7 +694,7 @@ class Client
         $response = $this->client->get($url, $requestOptions);
 
         if (200 !== $response->getStatusCode()) {
-            throw new \LogicException('An error occurred when trying to GET data from MR API');
+            throw new \LogicException('An error occurred when trying to GET data from MR API.');
         }
 
         $data = $response->json();
