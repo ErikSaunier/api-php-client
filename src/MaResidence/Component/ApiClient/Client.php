@@ -308,21 +308,13 @@ class Client
             }
         }
 
-        if (!is_array($body) || !array_key_exists('user', $body)) {
+        if (!is_array($body)) {
             throw new \LogicException(
                 'The User was successfully created but an unexpected response was return from the MR API'
             );
         }
 
-        $user = $body['user'];
-
-        if (!is_array($user) || !array_key_exists('id', $user) || !array_key_exists('self', $user)) {
-            throw new \LogicException(
-                'The User was successfully created but an unexpected response was return from the MR API. Expected key id and self.'
-            );
-        }
-
-        return $body['user'];
+        return array_key_exists('user', $body) ? $body['user'] : $body;
     }
 
     /**
