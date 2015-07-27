@@ -307,7 +307,6 @@ class Client
                 $body = $e->getResponse()->json();
             }
         }
-
         if (!is_array($body)) {
             throw new \LogicException(
                 'The User was successfully created but an unexpected response was return from the MR API'
@@ -644,6 +643,18 @@ class Client
             'q' => $query,
             'limit' => $limit,
         ));
+    }
+
+    /**
+     * Get the skills sorted by categories.
+     *
+     * @param array $options
+     *
+     * @return array
+     */
+    public function getSkills($options, $forceReValidation = false)
+    {
+        return $this->getResources('skills', $options, $forceReValidation);
     }
 
     /**
