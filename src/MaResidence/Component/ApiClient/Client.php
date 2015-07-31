@@ -658,6 +658,22 @@ class Client
     }
 
     /**
+     * Get the favorites of a user.
+     *
+     * @param string $entity            Name of favorite resource to get ('users', 'events', 'community', ...)
+     * @param array  $options
+     * @param bool   $forceReValidation
+     *
+     * @return array
+     */
+    public function getFavorites($entity, array $options, $forceReValidation = false)
+    {
+        $url = sprintf('/api/favorites/%s', $entity);
+
+        return $this->get($url, $options, $forceReValidation);
+    }
+
+    /**
      * @param $resource
      * @param array $options
      * @param bool  $forceReValidation
