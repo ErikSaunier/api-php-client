@@ -512,6 +512,75 @@ class Client
     }
 
     /**
+     * @param array $options
+     * @param bool $forceReValidation
+     *
+     * @return mixed
+     */
+    public function getTrustees(array $options = [], $forceReValidation = false)
+    {
+        return $this->getResources('trustees', $options, $forceReValidation);
+    }
+
+    /**
+     * @param $id
+     * @param array $options
+     * @param bool $forceReValidation
+     *
+     * @return mixed
+     */
+    public function getTrusteeById($id, array $options = [], $forceReValidation = false)
+    {
+        return $this->getResourceById('trustees', $id, $options, $forceReValidation);
+    }
+
+    /**
+     * @param array $options
+     * @param bool $forceReValidation
+     *
+     * @return mixed
+     */
+    public function getEstates(array $options = [], $forceReValidation = false)
+    {
+        return $this->getResources('estates', $options, $forceReValidation);
+    }
+
+    /**
+     * @param $id
+     * @param array $options
+     * @param bool $forceReValidation
+     *
+     * @return mixed
+     */
+    public function getEstateById($id, array $options = [], $forceReValidation = false)
+    {
+        return $this->getResourceById('estates', $id, $options, $forceReValidation);
+    }
+
+    /**
+     * @param array $options
+     * @param bool $forceReValidation
+     *
+     * @return mixed
+     */
+    public function getLessors(array $options = [], $forceReValidation = false)
+    {
+        return $this->getResources('lessors', $options, $forceReValidation);
+    }
+
+    /**
+     * @param $id
+     * @param array $options
+     * @param bool $forceReValidation
+     *
+     * @return mixed
+     */
+    public function getLessorById($id, array $options = [], $forceReValidation = false)
+    {
+        return $this->getResourceById('lessors', $id, $options, $forceReValidation);
+    }
+
+    /**
      * @param int   $userId
      * @param array $options
      * @param bool  $forceReValidation
