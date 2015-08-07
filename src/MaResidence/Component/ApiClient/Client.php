@@ -282,12 +282,6 @@ class Client
     }
 
     /**
-     * @param array $options
-     *
-     * @return mixed
-     */
-
-    /**
      * @param array $userData
      * @param       $version
      *
@@ -314,6 +308,23 @@ class Client
         }
 
         return array_key_exists('user', $body) ? $body['user'] : $body;
+    }
+
+    /**
+     * Change the user habitation.
+     *
+     * @param string $id
+     * @param array  $data
+     * @param int    $version
+     *
+     * @return mixed
+     */
+    public function putUserHabitation($id, array $data, $version)
+    {
+        $url = sprintf('/api/users/%s/habitation', $id);
+        $response = $this->put($url, $version, $data);
+
+        return $response->json();
     }
 
     /**
@@ -513,7 +524,7 @@ class Client
 
     /**
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -525,7 +536,7 @@ class Client
     /**
      * @param $id
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -536,7 +547,7 @@ class Client
 
     /**
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -548,7 +559,7 @@ class Client
     /**
      * @param $id
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -559,7 +570,7 @@ class Client
 
     /**
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
@@ -571,7 +582,7 @@ class Client
     /**
      * @param $id
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
      *
      * @return mixed
      */
