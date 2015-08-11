@@ -328,6 +328,23 @@ class Client
     }
 
     /**
+     * Change the user password.
+     *
+     * @param string $id
+     * @param array  $data
+     * @param int    $version
+     *
+     * @return mixed
+     */
+    public function putUserPassword($id, array $data, $version)
+    {
+        $url = sprintf('/api/users/%s/password', $id);
+        $response = $this->put($url, $version, $data);
+
+        return $response->json();
+    }
+
+    /**
      * @param array $advertData
      * @param       $version
      *
