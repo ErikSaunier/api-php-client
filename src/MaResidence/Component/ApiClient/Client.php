@@ -517,6 +517,41 @@ class Client
     }
 
     /**
+     * @param $entity
+     * @param array $options
+     * @param bool $forceReValidation
+     * @return array
+     */
+    public function getCategories($entity, array $options = [], $forceReValidation = false)
+    {
+        $url = sprintf('/api/%s/categories', $entity);
+
+        return $this->get($url, $options, $forceReValidation);
+    }
+
+    /**
+     * @param array $options
+     * @param bool  $forceReValidation
+     *
+     * @return mixed
+     */
+    public function getAssociationCategories(array $options = [], $forceReValidation = false)
+    {
+        return $this->getCategories('association', $options, $forceReValidation);
+    }
+
+    /**
+     * @param array $options
+     * @param bool  $forceReValidation
+     *
+     * @return mixed
+     */
+    public function getShopCategories(array $options = [], $forceReValidation = false)
+    {
+        return $this->getCategories('shop', $options, $forceReValidation);
+    }
+
+    /**
      * @param array $options
      * @param bool  $forceReValidation
      *
