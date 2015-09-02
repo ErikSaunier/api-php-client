@@ -299,8 +299,11 @@ class Client
             // If user already exists
             if ($e->getCode() == 409 && null !== $e->getResponse()) {
                 $body = $e->getResponse()->json();
+            } else {
+                throw $e;
             }
         }
+
         if (!is_array($body)) {
             throw new \LogicException(
                 'The User was successfully created but an unexpected response was return from the MR API'
@@ -308,6 +311,23 @@ class Client
         }
 
         return array_key_exists('user', $body) ? $body['user'] : $body;
+    }
+
+    /**
+     * Change the user information.
+     *
+     * @param string $id
+     * @param array  $data
+     * @param int    $version
+     *
+     * @return mixed
+     */
+    public function putUser($id, array $data, $version)
+    {
+        $url = sprintf('/api/users/%s', $id);
+        $response = $this->put($url, $version, $data);
+
+        return $response->json();
     }
 
     /**
@@ -519,7 +539,8 @@ class Client
     /**
      * @param $entity
      * @param array $options
-     * @param bool $forceReValidation
+     * @param bool  $forceReValidation
+     *
      * @return array
      */
     public function getCategories($entity, array $options = [], $forceReValidation = false)
