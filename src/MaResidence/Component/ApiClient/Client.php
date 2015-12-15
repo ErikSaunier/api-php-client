@@ -537,6 +537,18 @@ class Client
     }
 
     /**
+     * @param $id
+     * @param array $options
+     * @param bool  $forceReValidation
+     *
+     * @return mixed
+     */
+    public function getLocalGovernmentById($id, array $options = [], $forceReValidation = false)
+    {
+        return $this->getResourceById('localgovernments', $id, $options, $forceReValidation);
+    }
+
+    /**
      * @param $entity
      * @param array $options
      * @param bool  $forceReValidation
