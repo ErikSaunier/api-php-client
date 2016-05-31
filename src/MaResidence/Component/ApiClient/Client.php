@@ -93,9 +93,8 @@ class Client
         if (isset($options['cache_driver']) && $options['cache_driver'] instanceof Cache) {
             $cacheDriver = $options['cache_driver'];
         }
-        $ttl = array_key_exists('cache_ttl', $options) ? (int) $options['cache_ttl'] : 300;
 
-        $this->cacheStorage = $cacheStorage ?: new CacheStorage($cacheDriver, sprintf('api_client_%', $this->clientId), $ttl);
+        $this->cacheStorage = $cacheStorage ?: new CacheStorage($cacheDriver, sprintf('api_client_%', $this->clientId), 300);
 
         // enable cache proxy
         CacheSubscriber::attach($this->client, [
